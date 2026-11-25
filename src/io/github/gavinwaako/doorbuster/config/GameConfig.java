@@ -5,6 +5,7 @@ public class GameConfig {
     // Constructor
     private GameConfig() { }
 
+    // Game constants
     public static final String WINDOW_TITLE = "Door Buster";
 
     public static final int GRID_SIZE = 10; // cells per side (Model uses this)
