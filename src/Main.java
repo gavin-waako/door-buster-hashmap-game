@@ -1,5 +1,5 @@
-import io.github.gavinwaako.doorbuster.view.GameFrame;
-import io.github.gavinwaako.doorbuster.view.GameView;
+import io.github.gavinwaako.doorbuster.view.GameWindow;
+import io.github.gavinwaako.doorbuster.view.Room;
 
 import javax.swing.*;
 
@@ -7,8 +7,8 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            GameView view = new GameView();
-            new GameFrame(view);
+            Room view = new Room();
+            new GameWindow(view);
         });
     }
 }

@@ -1,15 +1,15 @@
 package io.github.gavinwaako.doorbuster.view;
 
-import io.github.gavinwaako.doorbuster.config.GameConfig;
+import io.github.gavinwaako.doorbuster.config.GameSettings;
 
 import javax.swing.JPanel;
 import java.awt.*;
 
 // This is the drawing surface onto which game components are drawn
-public class GameView extends JPanel {
+public class Room extends JPanel {
 
     // Constructs the GameView
-    public GameView() {
+    public Room() {
         // set size to 400 x 400 px
         setPreferredSize(new Dimension(400, 400));
 
@@ -26,12 +26,12 @@ public class GameView extends JPanel {
 
     private void drawFloor(Graphics2D g) {
         g.setColor(new Color(60, 63, 65));
-        g.fillRect(0, 0, GameConfig.WINDOW_PIXELS, GameConfig.WINDOW_PIXELS);
+        g.fillRect(0, 0, GameSettings.WINDOW_PIXELS, GameSettings.WINDOW_PIXELS);
     }
 
     private void drawGrid(Graphics2D g) {
-        int cell = GameConfig.CELL_SIZE;
-        int grid = GameConfig.GRID_SIZE;
+        int cell = GameSettings.CELL_SIZE;
+        int grid = GameSettings.GRID_SIZE;
 
         g.setColor(new Color(255, 255, 255, 30));
 

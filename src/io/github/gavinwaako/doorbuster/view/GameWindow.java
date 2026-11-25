@@ -2,11 +2,11 @@ package io.github.gavinwaako.doorbuster.view;
 
 import javax.swing.*;
 
-import static io.github.gavinwaako.doorbuster.config.GameConfig.WINDOW_TITLE;
+import static io.github.gavinwaako.doorbuster.config.GameSettings.WINDOW_TITLE;
 
 // The window that receives and holds the view
-public class GameFrame extends JFrame {
-    public GameFrame(GameView view) {
+public class GameWindow extends JFrame {
+    public GameWindow(Room view) {
 
         // Sets window title
         setTitle(WINDOW_TITLE);
