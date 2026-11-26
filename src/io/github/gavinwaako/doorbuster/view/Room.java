@@ -1,27 +1,31 @@
 package io.github.gavinwaako.doorbuster.view;
 
 import io.github.gavinwaako.doorbuster.config.GameSettings;
+import io.github.gavinwaako.doorbuster.model.Fortress;
+import io.github.gavinwaako.doorbuster.model.Player;
+import io.github.gavinwaako.doorbuster.model.FortressListener;
 
 import javax.swing.JPanel;
 import java.awt.*;
 
 // This is the drawing surface onto which game components are drawn
-public class Room extends JPanel {
+public class Room extends JPanel implements FortressListener {
 
-    // Constructs the GameView
-    public Room() {
-        // set size to 400 x 400 px
-        setPreferredSize(new Dimension(400, 400));
+    private final Fortress fortress;
 
-        // For panel to be able to receive key presses later
+    public Room(Fortress fortress) {
+        this.fortress = fortress;
+        setPreferredSize(new Dimension(GameSettings.WINDOW_PIXELS, GameSettings.WINDOW_PIXELS));
         setFocusable(true);
     }
 
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         drawFloor(g2);
         drawGrid(g2);
+        drawPlayer(g2, fortress.getPlayer());   // NEW
     }
 
     private void drawFloor(Graphics2D g) {
@@ -40,4 +44,24 @@ public class Room extends JPanel {
             g.drawRect(0, i * cell, cell * grid, cell);   // row i
         }
     }
+
+    // Called by the Fortress after every move
+    @Override
+    public void onFortressChanged() {
+        repaint();
+    }
+
+    private void drawPlayer(Graphics2D g, Player p) {
+        int cell = GameSettings.CELL_SIZE;
+        g.setColor(Color.CYAN);
+        g.fillRect(p.getX() * cell + 5, p.getY() * cell + 5, cell - 10, cell - 10);
+    }
 }
+
+
+
+
+
+
+
+

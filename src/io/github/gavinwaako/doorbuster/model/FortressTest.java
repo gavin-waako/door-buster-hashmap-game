@@ -1,6 +1,6 @@
 package io.github.gavinwaako.doorbuster.model;
 
-public class ModelTest {
+public class FortressTest {
     public static void main(String[] args) {
         Fortress m = new Fortress();
         for (int i = 0; i < 20; i++) m.move(Direction.WEST);
