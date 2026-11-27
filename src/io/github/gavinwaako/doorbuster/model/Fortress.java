@@ -10,6 +10,7 @@ public class Fortress {
     // Instance variables
     private static final int MAX = GameSettings.GRID_SIZE - 1;
     private final Player player;
+    private final World world;
 
     private final List<FortressListener> listeners = new ArrayList<>();
 
@@ -18,6 +19,7 @@ public class Fortress {
 
         //
         player = new Player(GameSettings.PLAYER_START_X, GameSettings.PLAYER_START_Y);
+        world = WorldFactory.createDefaultWorld();    // NEW 2: inside the constructor
     }
 
     public void move(Direction direction) {
@@ -53,6 +55,11 @@ public class Fortress {
          for (FortressListener listener : listeners) {
              listener.onFortressChanged();
          }
+    }
+
+    //
+    public Chamber getCurrentChamber() {              // NEW 3: getter, at the bottom
+        return world.getCurrentChamber();
     }
 }
 

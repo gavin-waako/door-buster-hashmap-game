@@ -5,6 +5,7 @@ public class GameSettings {
     // Instance variables
     public static final int PLAYER_START_X = 4;   // starting column
     public static final int PLAYER_START_Y = 4;   // starting row
+    public static final String START_ROOM = "Gold Room";
 
     // Constructor
     private GameSettings() { }

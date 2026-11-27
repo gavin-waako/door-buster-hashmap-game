@@ -12,6 +12,7 @@ import java.awt.*;
 public class Room extends JPanel implements FortressListener {
 
     private final Fortress fortress;
+    private final Theme theme = new Theme();
 
     public Room(Fortress fortress) {
         this.fortress = fortress;
@@ -28,8 +29,9 @@ public class Room extends JPanel implements FortressListener {
         drawPlayer(g2, fortress.getPlayer());   // NEW
     }
 
+    //
     private void drawFloor(Graphics2D g) {
-        g.setColor(new Color(60, 63, 65));
+        g.setColor(theme.floorColorFor(fortress.getCurrentChamber().getName()));
         g.fillRect(0, 0, GameSettings.WINDOW_PIXELS, GameSettings.WINDOW_PIXELS);
     }
 
@@ -57,6 +59,7 @@ public class Room extends JPanel implements FortressListener {
         g.fillRect(p.getX() * cell + 5, p.getY() * cell + 5, cell - 10, cell - 10);
     }
 }
+
 
 
 
