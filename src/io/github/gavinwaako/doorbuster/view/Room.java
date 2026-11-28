@@ -24,14 +24,18 @@ public class Room extends JPanel implements FortressListener {
         setFocusable(true);
     }
 
+    //
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         drawFloor(g2);
         drawGrid(g2);
         drawDoors(g2, fortress.getCurrentChamber());
         drawPlayer(g2, fortress.getPlayer());
+        drawRoomLabel(g2, fortress.getCurrentChamber());
     }
 
     //
@@ -66,10 +70,13 @@ public class Room extends JPanel implements FortressListener {
         if (img == null) {
             g.setColor(Color.CYAN);
             g.fillRect(px + 5, py + 5, cell - 10, cell - 10);
+        } else if (p.getFacing() == Direction.WEST) {
+            // mirror player image when direction changes
+            g.drawImage(img, px + cell, py, -cell, cell, null);
         } else {
             g.drawImage(img, px, py, cell, cell, null);
         }
-    }
+}
 
     private Rectangle doorBounds(Direction dir) {
      int cell = GameSettings.CELL_SIZE;
@@ -99,6 +106,15 @@ public class Room extends JPanel implements FortressListener {
                  g.drawImage(img, r.x, r.y, r.width, r.height, null);
              }
          }
+ }
+
+ //
+ private void drawRoomLabel(Graphics2D g, Chamber chamber) {
+     g.setFont(new Font("SansSerif", Font.BOLD, 14));
+     g.setColor(new Color(0, 0, 0, 120));
+     g.drawString(chamber.getName(), 9, 19);
+     g.setColor(Color.WHITE);
+     g.drawString(chamber.getName(), 8, 18);
  }
 }
 
