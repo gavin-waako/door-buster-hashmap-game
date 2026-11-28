@@ -6,6 +6,7 @@ import io.github.gavinwaako.doorbuster.model.Player;
 import io.github.gavinwaako.doorbuster.model.FortressListener;
 import io.github.gavinwaako.doorbuster.model.Chamber;
 import io.github.gavinwaako.doorbuster.model.Direction;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 import java.awt.*;
@@ -15,6 +16,7 @@ public class Room extends JPanel implements FortressListener {
 
     private final Fortress fortress;
     private final Theme theme = new Theme();
+    private final AssetManager assets = new AssetManager();
 
     public Room(Fortress fortress) {
         this.fortress = fortress;
@@ -58,8 +60,15 @@ public class Room extends JPanel implements FortressListener {
 
     private void drawPlayer(Graphics2D g, Player p) {
         int cell = GameSettings.CELL_SIZE;
-        g.setColor(Color.CYAN);
-        g.fillRect(p.getX() * cell + 5, p.getY() * cell + 5, cell - 10, cell - 10);
+        int px = p.getX() * cell;
+        int py = p.getY() * cell;
+        BufferedImage img = assets.getImage(GameSettings.IMG_PLAYER);
+        if (img == null) {
+            g.setColor(Color.CYAN);
+            g.fillRect(px + 5, py + 5, cell - 10, cell - 10);
+        } else {
+            g.drawImage(img, px, py, cell, cell, null);
+        }
     }
 
     private Rectangle doorBounds(Direction dir) {
@@ -77,11 +86,19 @@ public class Room extends JPanel implements FortressListener {
  }
 
  private void drawDoors(Graphics2D g, Chamber chamber) {
-     g.setColor(new Color(139, 69, 19));
-     for (Direction dir : chamber.getExitDirections()) {
-         Rectangle r = doorBounds(dir);
-         g.fillRect(r.x, r.y, r.width, r.height);
-     }
+        BufferedImage img = assets.getImage(GameSettings.IMG_DOOR);
+
+         for (Direction dir : chamber.getExitDirections()) {
+             Rectangle r = doorBounds(dir);
+             if (img == null) {
+                 g.setColor(new Color(139, 69, 19));
+                 g.fillRect(r.x, r.y, r.width, r.height);
+             } else if (dir == Direction.EAST) {
+                 g.drawImage(img, r.x + r.width, r.y, -r.width, r.height, null);
+             } else {
+                 g.drawImage(img, r.x, r.y, r.width, r.height, null);
+             }
+         }
  }
 }
 

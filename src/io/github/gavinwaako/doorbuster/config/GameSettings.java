@@ -6,6 +6,8 @@ public class GameSettings {
     public static final int PLAYER_START_X = 4;   // starting column
     public static final int PLAYER_START_Y = 4;   // starting row
     public static final String START_ROOM = "Gold Room";
+    public static final String IMG_PLAYER = "player";
+    public static final String IMG_DOOR = "door";
 
     // Defines cells where door begins and ends
     public static final int DOOR_START = 4;
