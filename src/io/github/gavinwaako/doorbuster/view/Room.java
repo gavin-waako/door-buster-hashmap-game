@@ -4,6 +4,8 @@ import io.github.gavinwaako.doorbuster.config.GameSettings;
 import io.github.gavinwaako.doorbuster.model.Fortress;
 import io.github.gavinwaako.doorbuster.model.Player;
 import io.github.gavinwaako.doorbuster.model.FortressListener;
+import io.github.gavinwaako.doorbuster.model.Chamber;
+import io.github.gavinwaako.doorbuster.model.Direction;
 
 import javax.swing.JPanel;
 import java.awt.*;
@@ -26,7 +28,8 @@ public class Room extends JPanel implements FortressListener {
         Graphics2D g2 = (Graphics2D) g;
         drawFloor(g2);
         drawGrid(g2);
-        drawPlayer(g2, fortress.getPlayer());   // NEW
+        drawDoors(g2, fortress.getCurrentChamber());
+        drawPlayer(g2, fortress.getPlayer());
     }
 
     //
@@ -58,6 +61,28 @@ public class Room extends JPanel implements FortressListener {
         g.setColor(Color.CYAN);
         g.fillRect(p.getX() * cell + 5, p.getY() * cell + 5, cell - 10, cell - 10);
     }
+
+    private Rectangle doorBounds(Direction dir) {
+     int cell = GameSettings.CELL_SIZE;
+     int start = GameSettings.DOOR_START * cell;
+     int length = GameSettings.DOOR_SPAN * cell;
+     int far = (GameSettings.GRID_SIZE - 1) * cell;
+
+     switch (dir) {
+         case EAST:  return new Rectangle(far, start, cell, length);
+         case WEST:  return new Rectangle(0,   start, cell, length);
+         case NORTH: return new Rectangle(start, 0,   length, cell);
+         default:    return new Rectangle(start, far, length, cell);
+     }
+ }
+
+ private void drawDoors(Graphics2D g, Chamber chamber) {
+     g.setColor(new Color(139, 69, 19));
+     for (Direction dir : chamber.getExitDirections()) {
+         Rectangle r = doorBounds(dir);
+         g.fillRect(r.x, r.y, r.width, r.height);
+     }
+ }
 }
 
 

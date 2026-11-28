@@ -7,6 +7,10 @@ public class GameSettings {
     public static final int PLAYER_START_Y = 4;   // starting row
     public static final String START_ROOM = "Gold Room";
 
+    // Defines cells where door begins and ends
+    public static final int DOOR_START = 4;
+    public static final int DOOR_SPAN = 2;
+
     // Constructor
     private GameSettings() { }
 
